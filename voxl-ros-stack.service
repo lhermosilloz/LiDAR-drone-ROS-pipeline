@@ -1,0 +1,15 @@
+[Unit]
+Description=VOXL ROS Stack (roscore + livox + fastlio + mavros + bridge)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/start_voxl_ros_stack.sh
+Restart=on-failure
+RestartSec=2
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
