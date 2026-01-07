@@ -72,3 +72,23 @@ To view service logs:
 ```bash
 sudo journalctl -u voxl-ros-stack.service -f
 ```
+
+## Known Issues
+
+### ROS Topic Publishing Issue
+
+**Problem:** The `/Odometry` and `/mavros/odometry/out` topics are not being published correctly when using the systemd service.
+
+**Observation:** The topics work properly when the script is executed manually, but fail when run through systemd.
+
+**Possible Causes:**
+- Environment variables not properly set in systemd context
+- User permissions differences between manual and systemd execution
+- ROS environment sourcing issues in systemd service
+- Network/timing issues during system startup
+
+**Troubleshooting Steps:**
+1. Check service logs for errors: `sudo journalctl -u voxl-ros-stack.service -f`
+2. Verify environment variables are properly set in the service file
+3. Ensure the service runs with appropriate user permissions
+4. Add proper ROS environment sourcing to the startup script
